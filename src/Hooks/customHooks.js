@@ -15,7 +15,7 @@ const makeMultipleRequests = async (posData) => {
   let d1 = new Date();
   const date = Math.floor(d1.getTime() / 1000);
   let currentDate = date;
-  let url = `http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${posData.lat}&lon=${posData.lon}&dt=${date}&appid=4521f996a3ee3be9006723869f1eb591&units=metric`;
+  let url = `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${posData.lat}&lon=${posData.lon}&dt=${date}&appid=4521f996a3ee3be9006723869f1eb591&units=metric`;
 
 
   while (weatherData.length < 5) {
@@ -27,7 +27,7 @@ const makeMultipleRequests = async (posData) => {
     currentDate = Math.floor(d1.getTime() / 1000);
 
     // genrating the new url for the previous day
-    url = `http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${posData.lat}&lon=${posData.lon}&dt=${currentDate}&appid=4521f996a3ee3be9006723869f1eb591&units=metric`;
+    url = `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${posData.lat}&lon=${posData.lon}&dt=${currentDate}&appid=4521f996a3ee3be9006723869f1eb591&units=metric`;
   }
   console.log(weatherData);
   return weatherData;
