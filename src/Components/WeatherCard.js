@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, CardGroup } from 'react-bootstrap';
+    import './weathercard.css';
 
 function WeatherCard(props) {
     const today = new Date();
@@ -66,28 +67,31 @@ function WeatherCard(props) {
 
 
             </table>
-            <CardGroup>
-                {props.cityData.map((eachDayData) => {
-                    return (
-                        <Card style={{ width: '5rem' }}>
-                            <Card.Header>Day Report</Card.Header>
-                            <Card.Body>
-                                <Card.Title>Date</Card.Title>
-                                <Card.Text>
-                                    {getDatesFromArray()}
-                                </Card.Text>
-                                <Card.Title>Weather Type</Card.Title>
-                                <Card.Text>
-                                    {eachDayData.current.weather[0].description}
-                                </Card.Text>
-                                <Card.Title>Temperature in Farenheit</Card.Title>
-                                <Card.Text>
-                                    {eachDayData.current.temp}
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>)
-                })}
-            </CardGroup>
+            <div className='box'>
+                <div className='grid'>
+                    {props.cityData.map((eachDayData) => {
+                        return (
+                            <Card style={{ width: '25rem' }} className='card'>
+                                <Card.Header>Day Report</Card.Header>
+                                <Card.Body>
+                                    <Card.Title>Date</Card.Title>
+                                    <Card.Text>
+                                        {getDatesFromArray()}
+                                    </Card.Text>
+                                    <Card.Title>Weather Type</Card.Title>
+                                    <Card.Text>
+                                        {eachDayData.current.weather[0].description}
+                                    </Card.Text>
+                                    <Card.Title>Temperature in Farenheit</Card.Title>
+                                    <Card.Text>
+                                        {eachDayData.current.temp}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        )
+                    })}
+                </div>
+            </div>
         </div>
     )
 
