@@ -22,11 +22,11 @@ function Dropdowncomponent(props) {
     }
     return (
         <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: '20px' }}>
-            <DropdownButton id="dropdown-basic-button" title={selectedCity}>
+            <DropdownButton data-testid='dropdown-basic-button' id="dropdown-basic-button" title={selectedCity}>
                 {mockData.map((cityObj, index) => {
                     return (
                         <>
-                            <Dropdown.Item eventKey={cityObj["city"]} onClick={onClickHandler}>{cityObj["city"]}</Dropdown.Item>
+                            <Dropdown.Item value={cityObj["city"]} eventKey={cityObj["city"]} onClick={onClickHandler}>{cityObj["city"]}</Dropdown.Item>
                         </>)
                 })}
             </DropdownButton>

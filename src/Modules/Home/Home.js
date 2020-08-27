@@ -1,8 +1,8 @@
 import React, { useReducer } from 'react'
 import Loader from '../../Components/Loader'
 import WeatherCard from '../../Components/WeatherCard';
-import { cityWeatherReducer, currentCityReducer } from './data/reducer';
-import { useCityWeatherFetch, useGetCitiesFetch } from '../../Hooks/customHooks'
+import { cityWeatherReducer } from './data/reducer';
+import { useCityWeatherFetch } from '../../Hooks/customHooks'
 import Dropdowncomponent from '../../Components/Dropdown';
 import './home.css';
 
