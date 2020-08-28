@@ -14,7 +14,7 @@ const makeMultipleRequests = async (posData) => {
   let d1 = new Date();
   const date = Math.floor(d1.getTime() / 1000);
   let currentDate = date;
-  let url = `http://api.openweathermap.org/data/2.5/weather?id=${posData.id}&appid=4521f996a3ee3be9006723869f1eb591&units=metric`;
+  let url = `https://api.openweathermap.org/data/2.5/weather?id=${posData.id}&appid=4521f996a3ee3be9006723869f1eb591&units=metric`;
   const todayData = await fetchSingleAPi(url);
   weatherData.push(todayData);
 
@@ -56,6 +56,6 @@ export const useCityWeatherFetch = (cityData, dispatch) => {
         return e
       })
     }
-  }, [dispatch, cityData])
+  }, [dispatch, cityData.selectedCity])
 }
 
