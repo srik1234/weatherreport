@@ -4,6 +4,7 @@ import WeatherCard from '../../Components/WeatherCard';
 import { cityWeatherReducer } from './data/reducer';
 import { useCityWeatherFetch } from '../../Hooks/customHooks'
 import Dropdowncomponent from '../../Components/Dropdown';
+import { Alert } from 'react-bootstrap';
 import './home.css';
 
 const initialState = {
@@ -30,19 +31,30 @@ function Home() {
     }
     const getCityWeatherReportContent = () => {
         if (cityData.loading) {
-            return <Loader/>
+            return <Loader />
         }
         if (cityData && cityData.cityHistoricalData && cityData.cityHistoricalData.length > 0) {
             return <WeatherCard cityData={cityData.cityHistoricalData} />
         }
     }
-    console.log(cityData);
+    const getErrorMsgContent = () => {
+        if (cityData.error) {
+            return <Alert variant="danger" dismissible>
+                <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+                <p>
+                    Please check the internet connection. Otherwise the API is returning error.
+               </p>
+            </Alert>
+        }
+    }
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'center', padding: '100px' }}>
                 Welcome to Weather report site
             </div>
+
             {getDropdownContent()}
+            {getErrorMsgContent()}
             {getCityWeatherReportContent()}
 
         </div >

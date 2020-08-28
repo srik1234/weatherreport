@@ -2,3 +2,8 @@
     width: 160px;
     margin-bottom: 50px;
 }
+.alert-dismissible {
+    margin-left: auto;
+    margin-right: auto;
+    width: 350px !important;
+}

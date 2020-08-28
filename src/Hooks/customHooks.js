@@ -49,7 +49,7 @@ export const useCityWeatherFetch = (cityData, dispatch) => {
       ).catch(e => {
         // handle error
         dispatch({
-          type: 'FETCHING_CITIES_WEATHER',
+          type: 'FETCHING_DATA_FAILED',
           loading: false,
           error: true
         })
