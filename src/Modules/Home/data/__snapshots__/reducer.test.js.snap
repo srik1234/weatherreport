@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cityweather reducer should handle cityWeatherRequest 1`] = `
+Object {
+  "cityHistoricalData": undefined,
+  "error": false,
+  "loading": false,
+  "selectedCity": null,
+}
+`;
+
+exports[`cityweather reducer should return the initial state 1`] = `
+Object {
+  "cityHistoricalData": Array [],
+  "error": false,
+  "loading": false,
+  "selectedCity": null,
+}
+`;

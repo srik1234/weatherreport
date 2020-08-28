@@ -4,19 +4,12 @@ import {
   Switch,
   Route
 } from "react-router-dom"
-import Home from './Modules/Home/Home'
-// Import Components
-import Container from './Components/container';
-
-
-// Global Style
-//
+import Home from './Modules/Home/Home';
 
 // Main page
 const App = () => {
   return (
     <Router>
-      <Container>
         <Switch>
           <Route exact path="/">
               <Home />
@@ -25,7 +18,6 @@ const App = () => {
             <Home />
           </Route>
         </Switch>
-      </Container>
     </Router>
   );
 };
