@@ -32,3 +32,9 @@
         margin-right: auto;
     }
   }
+
+  .table{
+      margin-right: auto;
+      margin-left: auto;
+      width: auto !important;
+  }

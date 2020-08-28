@@ -1,10 +1,24 @@
 import React from 'react'
-import { Card } from 'react-bootstrap';
-    import './weathercard.css';
+import { Card, Table } from 'react-bootstrap';
+import './weathercard.css';
+
+
 
 function WeatherCard(props) {
     const today = new Date();
+    const historicalData = props.cityData.slice(1);
     const todayDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    const getDateProperFormat = () => {
+        const dates = [];
+        for (let i = 1; i <= 5; i++) {
+            const today = new Date()
+            const yesterday = new Date(today)
+            yesterday.setDate(yesterday.getDate() - i)
+            const ddd = yesterday.toDateString()
+            dates.push(ddd);
+        }
+        return dates;
+    }
     const lastFiveDates = getDateProperFormat();
     const getDatesFromArray = () => {
         const date = lastFiveDates[0];
@@ -12,113 +26,79 @@ function WeatherCard(props) {
         return date;
 
     }
+    const getAvgTemperature = (props) => {
+        return historicalData.reduce((total, next) => total + next.current.temp, 0) / props.cityData.length;
+    }
+    const getHighestTemp = (props) => {
+        return Math.max(...historicalData.map(o => o.current.temp), 0);
+    }
+    const getLowestTemp = (props) => {
+        return Math.min(...historicalData.map(o => o.current.temp));
+    }
+
+
     return (
 
         <div>
-            <table style={{ marginLeft: 'auto', marginRight: 'auto', flexDirection: 'column' }}>
-                <tr>
-                    <td>
-                        <label >Current Date</label>
-                    </td>
-                    <td>
-                        {todayDate}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Temperature</label>
-                    </td>
-                    <td>
-                        {props.cityData[0].current.temp}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Weather condition</label>
-                    </td>
-                    <td>
-                        {props.cityData[0].current.weather[0].description}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Average Temperature</label>
-                    </td>
-                    <td>
-                        {getAvgTemperature(props)}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Highest Temperature</label>
-                    </td>
-                    <td>
-                        {getHighestTemp(props)}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Lowest Temperature</label>
-                    </td>
-                    <td>
-                        {getLowestTemp(props)}
-                    </td>
-                </tr>
+            <Table striped bordered hover size="sm">
+                <tbody>
+                    <tr>
+                        <th>Date</th>
+                        <td>{todayDate}</td>
+                    </tr>
+                    <tr>
+                        <th>Weather Condition</th>
+                        <td>{props.cityData[0].weather[0].description}</td>
+                    </tr>
+                    <tr>
+                        <th>Temperature</th>
+                        <td>{props.cityData[0].main.temp}</td>
+                    </tr>
+                    <tr>
+                        <th>Average Temp</th>
+                        <td>{getAvgTemperature(props)}</td>
+                    </tr>
+                    <tr>
+                        <th>Highest Temp</th>
+                        <td>{getHighestTemp(props)}</td>
+                    </tr>
+                    <tr>
+                        <th>Lowest Temp</th>
+                        <td>{getLowestTemp(props)}</td>
+                    </tr>
+                </tbody>
+            </Table>
 
-
-            </table>
-            <div className='box'>
-                <div className='grid'>
-                    {props.cityData.map((eachDayData) => {
-                        return (
-                            <Card style={{ width: '25rem' }} className='card'>
-                                <Card.Header>Day Report</Card.Header>
-                                <Card.Body>
-                                    <Card.Title>Date</Card.Title>
-                                    <Card.Text>
-                                        {getDatesFromArray()}
-                                    </Card.Text>
-                                    <Card.Title>Weather Type</Card.Title>
-                                    <Card.Text>
-                                        {eachDayData.current.weather[0].description}
-                                    </Card.Text>
-                                    <Card.Title>Temperature in Farenheit</Card.Title>
-                                    <Card.Text>
-                                        {eachDayData.current.temp}
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
-                        )
-                    })}
-                </div>
+        <div className='box'>
+            <div className='grid'>
+                {historicalData.map((eachDayData) => {
+                    return (
+                        <Card style={{ width: '25rem' }} className='card'>
+                            <Card.Header>Day Report</Card.Header>
+                            <Card.Body>
+                                <Card.Title>Date</Card.Title>
+                                <Card.Text>
+                                    {getDatesFromArray()}
+                                </Card.Text>
+                                <Card.Title>Weather Type</Card.Title>
+                                <Card.Text>
+                                    {eachDayData.current.weather[0].description}
+                                </Card.Text>
+                                <Card.Title>Temperature in Farenheit</Card.Title>
+                                <Card.Text>
+                                    {eachDayData.current.temp}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    )
+                })}
             </div>
         </div>
+        </div >
     )
 
-
 }
 
-const getAvgTemperature = (props) => {
-    return props.cityData.reduce((total, next) => total + next.current.temp, 0) / props.cityData.length;
-}
-const getHighestTemp = (props) => {
-    return Math.max(...props.cityData.map(o => o.current.temp), 0);
-}
-const getLowestTemp = (props) => {
-    return Math.min(...props.cityData.map(o => o.current.temp));
-}
-const getDateProperFormat = () => {
-    const dates = [];
-    for (let i = 1; i <= 5; i++) {
-        const today = new Date()
-        const yesterday = new Date(today)
 
-
-        yesterday.setDate(yesterday.getDate() - i)
-        const ddd = yesterday.toDateString()
-        dates.push(ddd);
-    }
-    return dates;
-}
 
 export default WeatherCard

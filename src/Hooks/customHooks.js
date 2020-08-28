@@ -14,19 +14,20 @@ const makeMultipleRequests = async (posData) => {
   let d1 = new Date();
   const date = Math.floor(d1.getTime() / 1000);
   let currentDate = date;
-  let url = `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${posData.lat}&lon=${posData.lon}&dt=${date}&appid=4521f996a3ee3be9006723869f1eb591&units=metric`;
+  let url = `http://api.openweathermap.org/data/2.5/weather?id=${posData.id}&appid=4521f996a3ee3be9006723869f1eb591&units=metric`;
+  const todayData = await fetchSingleAPi(url);
+  weatherData.push(todayData);
 
-
-  while (weatherData.length < 5) {
-    const newWeatherData = await fetchSingleAPi(url);
-    weatherData.push(newWeatherData);
+  while (weatherData.length < 6) {
 
     //updating the date to previous day 
     d1 = new Date(d1 - 24 * 3600 * 1000);
     currentDate = Math.floor(d1.getTime() / 1000);
-
     // genrating the new url for the previous day
     url = `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${posData.lat}&lon=${posData.lon}&dt=${currentDate}&appid=4521f996a3ee3be9006723869f1eb591&units=metric`;
+    const newWeatherData = await fetchSingleAPi(url);
+    weatherData.push(newWeatherData);
+
   }
   console.log(weatherData);
   return weatherData;
@@ -55,6 +56,6 @@ export const useCityWeatherFetch = (cityData, dispatch) => {
         return e
       })
     }
-  }, [dispatch, cityData.selectedCity])
+  }, [dispatch, cityData])
 }
 
